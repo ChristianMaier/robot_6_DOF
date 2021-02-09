@@ -1,0 +1,449 @@
+<robot name="robot_6_DOF">
+<link name="base_link">
+<collision>
+<origin xyz="0 0 0.016" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/base_link.stl"/>
+</geometry>
+<material name="base_link_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/base_link_visual.stl"/>
+</geometry>
+<material name="base_link_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="-0.00680572 0.047238 0.0262675" rpy="0 0 0"/>
+<mass value="3.74213" />
+<inertia ixx="0.029902" ixy="0.000218014"  ixz="0.000791582" iyy="0.0437241" iyz="-0.00102948" izz="0.0675796" />
+</inertial>
+</link>
+
+<link name="link_1">
+<collision>
+<origin xyz="-9.30584e-19 1.98139e-18 0" rpy="3.14159 1.58429e-16 1.33424e-47" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_1.stl"/>
+</geometry>
+<material name="link_1_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_1_visual.stl"/>
+</geometry>
+<material name="link_1_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="9.55181e-05 2.99837e-05 -0.0798937" rpy="0 0 0"/>
+<mass value="2.39215" />
+<inertia ixx="0.0114291" ixy="4.22818e-09"  ixz="-1.2542e-05" iyy="0.0160965" iyz="1.46179e-06" izz="0.0108174" />
+</inertial>
+</link>
+
+<link name="link_2">
+<collision>
+<origin xyz="2.95823e-31 0 -0.0475" rpy="-5.76275e-15 -7.10543e-15 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_2.stl"/>
+</geometry>
+<material name="link_2_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_2_visual.stl"/>
+</geometry>
+<material name="link_2_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="-1.34307e-05 -0.0760431 -0.0479592" rpy="0 0 0"/>
+<mass value="2.23437" />
+<inertia ixx="0.020257" ixy="-1.85666e-05"  ixz="4.90939e-07" iyy="0.0042223" iyz="-7.86368e-05" izz="0.0194719" />
+</inertial>
+</link>
+
+<link name="link_3">
+<collision>
+<origin xyz="0 -6.93889e-18 -0.03675" rpy="-4.87412e-31 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_3.stl"/>
+</geometry>
+<material name="link_3_material">
+<color rgba="0.647059 0.647059 0.647059 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_3_visual.stl"/>
+</geometry>
+<material name="link_3_material">
+<color rgba="0.647059 0.647059 0.647059 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="-0.0375944 -8.56938e-05 -0.0372351" rpy="0 0 0"/>
+<mass value="0.814414" />
+<inertia ixx="0.000820089" ixy="7.22462e-07"  ixz="-2.00451e-05" iyy="0.00236727" iyz="3.18142e-08" izz="0.00242182" />
+</inertial>
+</link>
+
+<link name="link_4">
+<collision>
+<origin xyz="0 1.38778e-17 0" rpy="0 -0 -7.99793e-31" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_4.stl"/>
+</geometry>
+<material name="link_4_material">
+<color rgba="0.768627 0.886275 0.952941 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_4_visual.stl"/>
+</geometry>
+<material name="link_4_material">
+<color rgba="0.768627 0.886275 0.952941 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="-0.000373576 0.0031191 -0.0493464" rpy="0 0 0"/>
+<mass value="0.385381" />
+<inertia ixx="0.000788329" ixy="-3.43959e-07"  ixz="6.69607e-06" iyy="0.000662825" iyz="-1.30007e-05" izz="0.000399636" />
+</inertial>
+</link>
+
+<link name="link_5">
+<collision>
+<origin xyz="4.02772e-05 -0.0716 -0.0239526" rpy="1.5708 -1.66095e-27 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_5.stl"/>
+</geometry>
+<material name="link_5_material">
+<color rgba="0.768627 0.886275 0.952941 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_5_visual.stl"/>
+</geometry>
+<material name="link_5_material">
+<color rgba="0.768627 0.886275 0.952941 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="7.67439e-06 -0.0160699 -0.0242849" rpy="0 0 0"/>
+<mass value="0.246747" />
+<inertia ixx="0.000273612" ixy="-9.43631e-08"  ixz="5.38603e-10" iyy="0.000152853" iyz="5.81188e-07" izz="0.000312011" />
+</inertial>
+</link>
+
+<link name="link_6">
+<collision>
+<origin xyz="-5.65737e-16 -1.40858e-16 0" rpy="0 -0 -2.23635e-33" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_6.stl"/>
+</geometry>
+<material name="link_6_material">
+<color rgba="0.231373 0.380392 0.705882 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/link_6_visual.stl"/>
+</geometry>
+<material name="link_6_material">
+<color rgba="0.231373 0.380392 0.705882 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="0.000196548 0.000235379 -0.0231247" rpy="0 0 0"/>
+<mass value="0.0849263" />
+<inertia ixx="3.93306e-05" ixy="-7.08112e-10"  ixz="3.4352e-07" iyy="4.46366e-05" iyz="4.07136e-07" izz="3.26655e-05" />
+</inertial>
+</link>
+
+<link name="servo_gear_b">
+<collision>
+<origin xyz="0.014 -0.0435 0.003" rpy="1.5708 -2.19631e-31 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/servo_gear_b.stl"/>
+</geometry>
+<material name="servo_gear_b_material">
+<color rgba="0.980392 0.713725 0.00392157 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/servo_gear_b_visual.stl"/>
+</geometry>
+<material name="servo_gear_b_material">
+<color rgba="0.980392 0.713725 0.00392157 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="-0.00659456 -0.000395381 0.00299996" rpy="0 0 0"/>
+<mass value="0.00597857" />
+<inertia ixx="2.79515e-07" ixy="-2.0624e-08"  ixz="-2.00476e-12" iyy="1.1655e-06" iyz="1.93958e-12" izz="1.41005e-06" />
+</inertial>
+</link>
+
+<link name="gripper_right_b">
+<collision>
+<origin xyz="0.054 0.0435 0.00325" rpy="-1.5708 -1.7725e-29 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/gripper_right_b.stl"/>
+</geometry>
+<material name="gripper_right_b_material">
+<color rgba="0.498039 0.498039 0.498039 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/gripper_right_b_visual.stl"/>
+</geometry>
+<material name="gripper_right_b_material">
+<color rgba="0.498039 0.498039 0.498039 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="0.00700589 -0.0283089 0.00324758" rpy="0 0 0"/>
+<mass value="0.0128567" />
+<inertia ixx="4.99593e-06" ixy="-7.52485e-07"  ixz="1.19772e-10" iyy="6.91007e-07" iyz="5.42522e-10" izz="4.90853e-06" />
+</inertial>
+</link>
+
+<joint name="Gripper_R_3" type="revolute">
+<origin xyz="-0.04 3.9968e-15 0.00625" rpy="-3.14159 6.12338e-17 -5.19586e-16" />
+<parent link="servo_gear_b" />
+<child link="gripper_right_b" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-1.5708" upper="0"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="Gripper_R_1" type="revolute">
+<origin xyz="-0.014 -0.003 -0.0435" rpy="-1.5708 -0 6.12292e-17" />
+<parent link="link_6" />
+<child link="servo_gear_b" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-1.5708" upper="0"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="pivot_arm_r">
+<collision>
+<origin xyz="0.007 0.0635 -0.003" rpy="-1.5708 -1.37126e-31 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/pivot_arm_r.stl"/>
+</geometry>
+<material name="pivot_arm_r_material">
+<color rgba="0.231373 0.380392 0.705882 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/pivot_arm_r_visual.stl"/>
+</geometry>
+<material name="pivot_arm_r_material">
+<color rgba="0.231373 0.380392 0.705882 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="-0.02 -1.70697e-15 -0.003" rpy="0 0 0"/>
+<mass value="0.0020469" />
+<inertia ixx="1.2876e-08" ixy="-5.03013e-38"  ixz="0" iyy="3.79701e-07" iyz="0" izz="3.80828e-07" />
+</inertial>
+</link>
+
+<joint name="Gripper_R_2" type="revolute">
+<origin xyz="-0.007 -0.003 -0.0635" rpy="1.5708 -4.31244e-16 -6.12354e-17" />
+<parent link="link_6" />
+<child link="pivot_arm_r" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="0" upper="1.5708"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="idol_gear_b">
+<collision>
+<origin xyz="-0.014 -0.0435 0.003" rpy="1.5708 -2.07403e-32 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/idol_gear_b.stl"/>
+</geometry>
+<material name="idol_gear_b_material">
+<color rgba="0.498039 0.498039 0.498039 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/idol_gear_b_visual.stl"/>
+</geometry>
+<material name="idol_gear_b_material">
+<color rgba="0.498039 0.498039 0.498039 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="0.00645259 -0.000406565 0.003" rpy="0 0 0"/>
+<mass value="0.00613146" />
+<inertia ixx="2.8118e-07" ixy="2.39702e-08"  ixz="2.32246e-13" iyy="1.17343e-06" iyz="-2.97152e-13" izz="1.41874e-06" />
+</inertial>
+</link>
+
+<link name="gripper_left_b">
+<collision>
+<origin xyz="-0.054 -0.0435 -0.00325" rpy="1.5708 6.43671e-33 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/gripper_left_b.stl"/>
+</geometry>
+<material name="gripper_left_b_material">
+<color rgba="0.231373 0.380392 0.705882 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/gripper_left_b_visual.stl"/>
+</geometry>
+<material name="gripper_left_b_material">
+<color rgba="0.231373 0.380392 0.705882 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="-0.00700588 0.0283089 -0.00324761" rpy="0 0 0"/>
+<mass value="0.0128567" />
+<inertia ixx="4.99594e-06" ixy="-7.5248e-07"  ixz="9.3409e-11" iyy="6.91004e-07" iyz="5.31412e-10" izz="4.90854e-06" />
+</inertial>
+</link>
+
+<joint name="Gripper_L_3" type="revolute">
+<origin xyz="0.04 3.33067e-15 0.00625" rpy="8.73315e-16 2.16008e-16 8.26882e-16" />
+<parent link="idol_gear_b" />
+<child link="gripper_left_b" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-1.5708" upper="0"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="Gripper_L_1" type="revolute">
+<origin xyz="0.014 -0.003 -0.0435" rpy="-1.5708 -7.88861e-31 -7.46924e-16" />
+<parent link="link_6" />
+<child link="idol_gear_b" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="0" upper="1.5708"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="pivot_arm_l">
+<collision>
+<origin xyz="-0.007 -0.0635 0.003" rpy="1.5708 -2.46519e-32 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/pivot_arm_l.stl"/>
+</geometry>
+<material name="pivot_arm_l_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0 0 0" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package://robot_6_DOF_urdf/urdf/pivot_arm_l_visual.stl"/>
+</geometry>
+<material name="pivot_arm_l_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<inertial>
+<origin xyz="0.02 1.6237e-15 0.003" rpy="0 0 0"/>
+<mass value="0.0020469" />
+<inertia ixx="1.2876e-08" ixy="9.04294e-39"  ixz="0" iyy="3.79701e-07" iyz="0" izz="3.80828e-07" />
+</inertial>
+</link>
+
+<joint name="Gripper_L_2" type="revolute">
+<origin xyz="0.007 -0.003 -0.0635" rpy="-1.5708 -7.64311e-16 6.12292e-17" />
+<parent link="link_6" />
+<child link="pivot_arm_l" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="0" upper="1.5708"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="Joint_6" type="revolute">
+<origin xyz="4.02772e-05 -0.0736 -0.0239526" rpy="-1.5708 -1.5708 0" />
+<parent link="link_5" />
+<child link="link_6" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-3.14159" upper="3.14159"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="Joint_5" type="revolute">
+<origin xyz="-9.12708e-16 -0.024 -0.095" rpy="1.5708 9.59771e-15 6.82401e-22" />
+<parent link="link_4" />
+<child link="link_5" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-1.5708" upper="1.5708"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="Joint_4" type="revolute">
+<origin xyz="-0.1275 2.11252e-17 -0.03675" rpy="1.5708 9.64048e-12 1.5708" />
+<parent link="link_3" />
+<child link="link_4" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-3.14159" upper="3.14159"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="Joint_3" type="revolute">
+<origin xyz="-9.12703e-07 -0.221124 -0.00975411" rpy="-3.17127e-15 3.815e-15 1.5708" />
+<parent link="link_2" />
+<child link="link_3" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-2.0944" upper="2.0944"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="Joint_2" type="revolute">
+<origin xyz="-0.0475 7.91824e-16 -0.1655" rpy="1.5708 -4.14897e-16 -1.5708" />
+<parent link="link_1" />
+<child link="link_2" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-1.65806" upper="1.65806"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="Joint_1" type="revolute">
+<origin xyz="-2.4784e-17 -6.17888e-18 0.082" rpy="-3.14159 3.14283e-16 3.14159" />
+<parent link="base_link" />
+<child link="link_1" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="2" lower="-2.0944" upper="2.0944"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+
+</robot>

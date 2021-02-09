@@ -1,0 +1,11 @@
+{
+    "documentId": "fc4e77158e55e536e7adb51f",
+    "outputFormat": "urdf",
+    "assemblyName": "Moveo_reduced",
+    "useScads": true,
+    "mergeSTLs": "visual",
+    "packageName": "robot_6_DOF_urdf/urdf/",
+    "robotName": "robot_6_DOF",
+    "jointMaxVelocity": 2
+}
+

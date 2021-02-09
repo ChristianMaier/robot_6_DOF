@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: robot_6_DOF_urdf
+    relative_path: urdf/robot.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/robot_6_DOF.srdf
+  CONFIG:
+    author_name: never
+    author_email: never@ever.com
+    generated_timestamp: 1612908980
