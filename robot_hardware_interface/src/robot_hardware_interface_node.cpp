@@ -20,20 +20,33 @@ ROBOTHardwareInterface::~ROBOTHardwareInterface() {
 }
 
 void ROBOTHardwareInterface::init() {
-    
-    for (int i=0; i < 7; i++) {
+
+    num_joints_ = 6;
+    joint_names_.resize(num_joints_);
+    joint_position_.resize(num_joints_);
+    joint_velocity_.resize(num_joints_);
+    joint_effort_.resize(num_joints_);
+    joint_position_command_.resize(num_joints_);
+    joint_velocity_command_.resize(num_joints_);
+
+    joints_pub.data.resize(num_joints_);
+
+    std::stringstream ss;
+    for (int i=0; i < num_joints_; i++) {
         joint_names_[i] = "Joint_";
         joint_names_[i].append(std::to_string(i+1));
         //std::cout << joint_names_[i];
-        ROS_INFO("Hi, joint name is:");
+        ss << "Hi, joint name is: " << joint_names_[i];
+        ROS_INFO("%s\n", ss.str().c_str() );
+        ss.str("");
 
-    }
+
 // Create joint state interface
-    hardware_interface::JointStateHandle jointStateHandle(joint_names_[0], &joint_position_[0], &joint_velocity_[0], &joint_effort_[0]);
+    hardware_interface::JointStateHandle jointStateHandle(joint_names_[i], &joint_position_[i], &joint_velocity_[i], &joint_effort_[i]);
     joint_state_interface_.registerHandle(jointStateHandle);
 
 // Create position joint interface
-    hardware_interface::JointHandle jointPositionHandle(jointStateHandle, &joint_position_command_[0]);
+    hardware_interface::JointHandle jointPositionHandle(jointStateHandle, &joint_position_command_[i]);
     position_joint_interface_.registerHandle(jointPositionHandle);
     
 // Create velocity joint interface
@@ -47,13 +60,14 @@ void ROBOTHardwareInterface::init() {
 //    joint_limits_interface::getJointLimits("Joint_1", nh_, limits);
 //	joint_limits_interface::EffortJointSaturationHandle jointLimitsHandle(jointEffortHandle, limits);
 //	effortJointSaturationInterface.registerHandle(jointLimitsHandle);
-
+    }
 
 // Register all joints interfaces    
     registerInterface(&joint_state_interface_);
     registerInterface(&position_joint_interface_);
     registerInterface(&effort_joint_interface_);
     registerInterface(&effortJointSaturationInterface);
+    ROS_INFO("Registering Joints done.");
 }
 
 void ROBOTHardwareInterface::update(const ros::TimerEvent& e) {
@@ -69,36 +83,32 @@ void ROBOTHardwareInterface::read() {
 
 	if(client.call(srv))
 	{
-	    joint_position_[0] = srv.response.joint_pos[0];
-	    joint_velocity_[0] = 0.0;
+        for (int i=0; i < srv.response.joint_pos.size(); i++) {
+            joint_position_[i] = srv.response.joint_pos[i];
+            joint_velocity_[i] = 0.0;
+        }
 	    ROS_INFO("Current Pos: %.2f, Vel: %.2f",joint_position_[0],joint_velocity_[0]);
-/*
-if more than one joint,
-        get values for joint_position_2, joint_velocity_2,......
-*/	    
-	    
 	}
 	else
 	{
-	    joint_position_[0] = 0;
-	    joint_velocity_[0] = 0;
+        for (int i=0; i < num_joints_; i++) {
+            joint_position_[i] = 0.0;
+            joint_velocity_[i] = 0.0;
+        }
 	}
         
 
 }
 
 void ROBOTHardwareInterface::write(ros::Duration elapsed_time) {
-   
+
     effortJointSaturationInterface.enforceLimits(elapsed_time);
-    joints_pub.data[0] = 0.0;
-	joints_pub.data[0] = (float) joint_position_command_[0];
-	
-/*
-if more than one joint,
-    publish values for joint_effort_command_2,......
-*/	
-	
-	ROS_INFO("Position Cmd: %.2f",joint_position_command_[0]);
+
+    for (int i=0; i < num_joints_; i++) {
+        joints_pub.data[i] = (float) joint_position_command_[i];
+
+    }
+    ROS_INFO("Position Cmd: %.2f", joint_position_command_[0]);
 	pub.publish(joints_pub);
 		
 }

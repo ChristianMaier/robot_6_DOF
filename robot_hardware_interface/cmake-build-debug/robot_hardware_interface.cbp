@@ -78,6 +78,7 @@
 					<Add option="-DROS_PACKAGE_NAME=&quot;robot_hardware_interface&quot;"/>
 					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
 					<Add directory="/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/cmake-build-debug/devel/include"/>
+					<Add directory="/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/include"/>
 					<Add directory="/opt/ros/noetic/include"/>
 					<Add directory="/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
 					<Add directory="/usr/include/c++/9"/>
@@ -106,6 +107,7 @@
 					<Add option="-DROS_PACKAGE_NAME=&quot;robot_hardware_interface&quot;"/>
 					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
 					<Add directory="/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/cmake-build-debug/devel/include"/>
+					<Add directory="/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/include"/>
 					<Add directory="/opt/ros/noetic/include"/>
 					<Add directory="/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
 					<Add directory="/usr/include/c++/9"/>

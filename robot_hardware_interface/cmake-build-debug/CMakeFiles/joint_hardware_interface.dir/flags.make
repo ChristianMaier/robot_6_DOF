@@ -6,5 +6,5 @@ CXX_FLAGS = -g
 
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"robot_hardware_interface\"
 
-CXX_INCLUDES = -I/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/cmake-build-debug/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp 
+CXX_INCLUDES = -I/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/cmake-build-debug/devel/include -I/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp 
 
