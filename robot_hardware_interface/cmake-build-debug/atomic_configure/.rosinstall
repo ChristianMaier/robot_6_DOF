@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/cmake-build-debug/devel/setup.sh
