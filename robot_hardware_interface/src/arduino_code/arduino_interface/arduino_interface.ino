@@ -21,6 +21,7 @@ float f_des_position[num_joints];
 const int steps_per_rev = 200; // 1,8° per step
 
 int i_des_pos_steps[num_joints];
+int des_pos;
 
 AccelStepper stepper1(1, 2, 3);
 AccelStepper stepper2(1, 4, 5);
@@ -31,7 +32,7 @@ AccelStepper stepper6(1, 12, 13);
 
 AccelStepper joints[num_joints] = {stepper1, stepper2, stepper3, stepper4, stepper5, stepper6};
 
-
+robot_hardware_interface::pos_service::Response data_exchanger;
 
 // functions-------------- 
 
@@ -47,6 +48,11 @@ void messageCb( const std_msgs::Float32MultiArray& pos_msg){
 void Callback(const robot_hardware_interface::pos_service::Request & req, robot_hardware_interface::pos_service::Response & res)
 { 
   // pos service, delivers information of joint position to controller
+
+  // shape the size of the output message
+  res.joint_pos = data_exchanger.joint_pos;
+  //res.dim.stride = 1;
+  
   for(int i = 0; i < num_joints; i++){
     res.joint_pos[i] = calc_pos_in_rad(joints[i].currentPosition());
   }
@@ -67,7 +73,7 @@ float calc_pos_in_rad(int pos_in_steps){
 // setup-------------- 
 
 elapsedMicros rosMessageCheck;
-ros::Subscriber<std_msgs::Float32MultiArray> sub("ard_des_joint_position_1", &messageCb );
+ros::Subscriber<std_msgs::Float32MultiArray> sub("ard_des_joint_position", &messageCb );
 ros::ServiceServer<robot_hardware_interface::pos_service::Request, robot_hardware_interface::pos_service::Response> service("ard_pos_service", &Callback );
 
 void setup()
@@ -91,6 +97,9 @@ void setup()
       joints[i].setAcceleration(200);
     }
 
+    des_pos = 0;
+    data_exchanger.joint_pos = (float*)malloc(sizeof(float) * num_joints);
+
 }
 
 // main loop-------------- 
@@ -100,7 +109,7 @@ void loop()
   // check if the desired position has changed, if yes then set the new position, do this for every joint
   for(int i = 0; i < num_joints; i++){
     
-    int des_pos = calc_pos_in_steps(f_des_position[i]);
+    des_pos = calc_pos_in_steps(f_des_position[i]);
     if(des_pos != i_des_pos_steps[i]){
       joints[i].moveTo(des_pos); 
       i_des_pos_steps[i] = des_pos;
