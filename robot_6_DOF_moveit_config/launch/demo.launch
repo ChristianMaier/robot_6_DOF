@@ -1,5 +1,7 @@
 <launch>
 
+  <arg name="serial_port" default="/dev/ttyACM0" />
+
   <!-- specify the planning pipeline -->
   <arg name="pipeline" default="ompl" />
 
@@ -29,20 +31,21 @@
 
 
   <!-- We do not have a robot connected, so publish fake joint states -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" unless="$(arg use_gui)">
-    <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam>
-  </node>
-  <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" if="$(arg use_gui)">
-    <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam>
-  </node>
-
+  <!--
+<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" unless="$(arg use_gui)">
+  <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam>
+</node>
+<node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" if="$(arg use_gui)">
+  <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam>
+</node>
+-->
   <!-- Given the published joint states, publish tf for the robot links -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
 
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find robot_6_DOF_moveit_config)/launch/move_group.launch">
     <arg name="allow_trajectory_execution" value="true"/>
-    <arg name="fake_execution" value="true"/>
+    <arg name="fake_execution" value="false"/>
     <arg name="info" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
     <arg name="pipeline" value="$(arg pipeline)"/>
@@ -59,5 +62,15 @@
   <include file="$(find robot_6_DOF_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)">
     <arg name="moveit_warehouse_database_path" value="$(arg db_path)"/>
   </include>
+
+  <rosparam file="$(find robot_6_DOF_moveit_config)/config/controllers.yaml" command="load"/>
+  <node name="rosserial_arduino_node" pkg="rosserial_arduino" type="serial_node.py" args="$(arg serial_port)" />
+  <node name="robot_hardware_interface" pkg="robot_hardware_interface" type="joint_hardware_interface" output="screen"/>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+        args="
+              /joints_update
+              /trajectory_arm_controller
+          "/>
 
 </launch>
