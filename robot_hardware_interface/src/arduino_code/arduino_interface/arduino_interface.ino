@@ -32,7 +32,7 @@ AccelStepper stepper6(1, 12, 13);
 
 AccelStepper joints[num_joints] = {stepper1, stepper2, stepper3, stepper4, stepper5, stepper6};
 
-robot_hardware_interface::pos_service::Response data_exchanger;
+std_msgs::Float32MultiArray data_exchanger;
 
 // functions-------------- 
 
@@ -50,11 +50,13 @@ void Callback(const robot_hardware_interface::pos_service::Request & req, robot_
   // pos service, delivers information of joint position to controller
 
   // shape the size of the output message
-  res.joint_pos = data_exchanger.joint_pos;
+  //res.joint_pos = (float*)malloc(sizeof(float) * num_joints);//data_exchanger.joint_pos;
   //res.dim.stride = 1;
+  res.joint_pos = data_exchanger;
+  //res.joint_pos.data_length = num_joints;
   
   for(int i = 0; i < num_joints; i++){
-    res.joint_pos[i] = calc_pos_in_rad(joints[i].currentPosition());
+    res.joint_pos.data[i] = calc_pos_in_rad(joints[i].currentPosition());
   }
 }
 
@@ -94,11 +96,12 @@ void setup()
       
     for (int i = 0; i < num_joints; i++){
       joints[i].setMaxSpeed(400);
-      joints[i].setAcceleration(200);
+      joints[i].setAcceleration(2000);
     }
 
     des_pos = 0;
-    data_exchanger.joint_pos = (float*)malloc(sizeof(float) * num_joints);
+    data_exchanger.data = (float*)malloc(sizeof(float) * num_joints);
+    data_exchanger.data_length = num_joints;
 
 }
 

@@ -83,8 +83,8 @@ void ROBOTHardwareInterface::read() {
 
 	if(client.call(srv))
 	{
-        for (int i=0; i < srv.response.joint_pos.size(); i++) {
-            joint_position_[i] = srv.response.joint_pos[i];
+        for (int i=0; i < srv.response.joint_pos.data.size(); i++) {
+            joint_position_[i] = srv.response.joint_pos.data[i];
             joint_velocity_[i] = 0.0;
         }
 	    ROS_INFO("Current Pos: %.2f, Vel: %.2f",joint_position_[0],joint_velocity_[0]);

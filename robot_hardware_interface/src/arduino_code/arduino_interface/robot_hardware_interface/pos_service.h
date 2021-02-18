@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "ros/msg.h"
+#include "std_msgs/Float32MultiArray.h"
 
 namespace robot_hardware_interface
 {
@@ -38,69 +39,30 @@ static const char POS_SERVICE[] = "robot_hardware_interface/pos_service";
   class pos_serviceResponse : public ros::Msg
   {
     public:
-      uint32_t joint_pos_length;
-      typedef float _joint_pos_type;
-      _joint_pos_type st_joint_pos;
-      _joint_pos_type * joint_pos;
+      typedef std_msgs::Float32MultiArray _joint_pos_type;
+      _joint_pos_type joint_pos;
 
     pos_serviceResponse():
-      joint_pos_length(0), st_joint_pos(), joint_pos(nullptr)
+      joint_pos()
     {
     }
 
     virtual int serialize(unsigned char *outbuffer) const override
     {
       int offset = 0;
-      *(outbuffer + offset + 0) = (this->joint_pos_length >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (this->joint_pos_length >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (this->joint_pos_length >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (this->joint_pos_length >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->joint_pos_length);
-      for( uint32_t i = 0; i < joint_pos_length; i++){
-      union {
-        float real;
-        uint32_t base;
-      } u_joint_posi;
-      u_joint_posi.real = this->joint_pos[i];
-      *(outbuffer + offset + 0) = (u_joint_posi.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_joint_posi.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_joint_posi.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_joint_posi.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->joint_pos[i]);
-      }
+      offset += this->joint_pos.serialize(outbuffer + offset);
       return offset;
     }
 
     virtual int deserialize(unsigned char *inbuffer) override
     {
       int offset = 0;
-      uint32_t joint_pos_lengthT = ((uint32_t) (*(inbuffer + offset))); 
-      joint_pos_lengthT |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1); 
-      joint_pos_lengthT |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2); 
-      joint_pos_lengthT |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3); 
-      offset += sizeof(this->joint_pos_length);
-      if(joint_pos_lengthT > joint_pos_length)
-        this->joint_pos = (float*)realloc(this->joint_pos, joint_pos_lengthT * sizeof(float));
-      joint_pos_length = joint_pos_lengthT;
-      for( uint32_t i = 0; i < joint_pos_length; i++){
-      union {
-        float real;
-        uint32_t base;
-      } u_st_joint_pos;
-      u_st_joint_pos.base = 0;
-      u_st_joint_pos.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_st_joint_pos.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_st_joint_pos.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_st_joint_pos.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->st_joint_pos = u_st_joint_pos.real;
-      offset += sizeof(this->st_joint_pos);
-        memcpy( &(this->joint_pos[i]), &(this->st_joint_pos), sizeof(float));
-      }
+      offset += this->joint_pos.deserialize(inbuffer + offset);
      return offset;
     }
 
     virtual const char * getType() override { return POS_SERVICE; };
-    virtual const char * getMD5() override { return "b7a5b192aa496cd0bd74aa738e2d0265"; };
+    virtual const char * getMD5() override { return "c605bcd1060e2ab3fdb6258d8cd3effc"; };
 
   };
 
