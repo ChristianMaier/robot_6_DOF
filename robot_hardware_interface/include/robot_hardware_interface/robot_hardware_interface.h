@@ -12,6 +12,10 @@
 #include <angles/angles.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <transmission_interface/simple_transmission.h>
+#include <transmission_interface/transmission_interface.h>
+
+using namespace transmission_interface;
 
 class ROBOTHardwareInterface : public hardware_interface::RobotHW 
 {
@@ -31,7 +35,6 @@ class ROBOTHardwareInterface : public hardware_interface::RobotHW
         hardware_interface::PositionJointInterface position_joint_interface_;
         hardware_interface::EffortJointInterface     effort_joint_interface_;
 
-        
         joint_limits_interface::EffortJointSaturationInterface effortJointSaturationInterface;
         
         int                                          num_joints_;
@@ -44,7 +47,26 @@ class ROBOTHardwareInterface : public hardware_interface::RobotHW
 
         std::vector<double>                          joint_lower_limits_;
         std::vector<double>                          joint_upper_limits_;
-        
+
+        // interfaces for transmission, TODO adjust for different number of joints
+        std::vector<double>                          trans_ratio;
+        /*
+        ActuatorToJointStateInterface       act_to_jnt_state; // For propagating current actuator state to joint space
+        JointToActuatorPositionInterface    jnt_to_act_pos;
+        //SimpleTransmission                  sim_trans[6];
+
+        ActuatorData                        a_state_data[6]; // Size 2: One per transmission
+        ActuatorData                        a_cmd_data[6];
+
+        JointData                           j_state_data[6];
+        JointData                           j_cmd_data[6];
+
+        double a_curr_pos[6]; // Size 3: One per actuator
+        double a_cmd_pos[6];
+        double j_curr_pos[6]; // Size 3: One per joint
+        double j_cmd_pos[6];
+        */
+
         ros::NodeHandle nh_;
         ros::Timer non_realtime_loop_;
         ros::Duration elapsed_time_;

@@ -21,6 +21,7 @@ ROBOTHardwareInterface::~ROBOTHardwareInterface() {
 
 void ROBOTHardwareInterface::init() {
 
+    // initialize interfaces for robot control
     num_joints_ = 6;
     joint_names_.resize(num_joints_);
     joint_position_.resize(num_joints_);
@@ -31,6 +32,13 @@ void ROBOTHardwareInterface::init() {
 
     joints_pub.data.resize(num_joints_);
 
+    trans_ratio.push_back(10.0);
+    trans_ratio.push_back(10.0);
+    trans_ratio.push_back(10.0);
+    trans_ratio.push_back(10.0);
+    trans_ratio.push_back(10.0);
+    trans_ratio.push_back(10.0);
+
     std::stringstream ss;
     for (int i=0; i < num_joints_; i++) {
         joint_names_[i] = "Joint_";
@@ -39,7 +47,6 @@ void ROBOTHardwareInterface::init() {
         ss << "Hi, joint name is: " << joint_names_[i];
         ROS_INFO("%s\n", ss.str().c_str() );
         ss.str("");
-
 
 // Create joint state interface
     hardware_interface::JointStateHandle jointStateHandle(joint_names_[i], &joint_position_[i], &joint_velocity_[i], &joint_effort_[i]);
@@ -68,6 +75,47 @@ void ROBOTHardwareInterface::init() {
     registerInterface(&effort_joint_interface_);
     registerInterface(&effortJointSaturationInterface);
     ROS_INFO("Registering Joints done.");
+
+    // initialize transmission interfaces
+
+    /*
+    SimpleTransmission trans_1(10.0);
+    SimpleTransmission trans_2(10.0);
+    SimpleTransmission trans_3(10.0);
+    SimpleTransmission trans_4(10.0);
+    SimpleTransmission trans_5(10.0);
+    SimpleTransmission trans_6(10.0);
+    SimpleTransmission sim_trans[6] = {trans_1,trans_2,trans_3,trans_4,trans_5,trans_6};
+    for(int i=0; i < num_joints_; i++) {
+
+        // Wrap simple transmission raw data - current state
+        a_state_data[i].position.push_back(&a_curr_pos[i]);// Velocity and effort vectors are unused
+        j_state_data[i].position.push_back(&j_curr_pos[i]);// Velocity and effort vectors are unused
+        // Wrap simple transmission raw data - position command
+        a_cmd_data[i].position.push_back(&a_cmd_pos[i]); // Velocity and effort vectors are unused
+        j_cmd_data[i].position.push_back(&j_cmd_pos[i]); // Velocity and effort vectors are unused
+
+        // register handles
+        std::string trans_name = "trans_";
+        trans_name.append(std::to_string(i+1));
+        act_to_jnt_state.registerHandle(ActuatorToJointStateHandle(trans_name,
+                                                                 &sim_trans[i] ,
+                                                                 a_state_data[i],
+                                                                 j_state_data[i]));
+        jnt_to_act_pos.registerHandle(JointToActuatorPositionHandle(trans_name,
+                                                                    &sim_trans[i],
+                                                                    a_cmd_data[i],
+                                                                    j_cmd_data[i]));
+    }
+    for (int i=0; i < num_joints_; i++){
+        a_curr_pos[i] = 0.0;
+        a_cmd_pos[i] = 0.0;
+        j_curr_pos[i] = 0.0;
+        j_cmd_pos[i] = 0.0;
+
+    }
+    ROS_INFO("Successfully created transmission interfaces.");
+    */
 }
 
 void ROBOTHardwareInterface::update(const ros::TimerEvent& e) {
@@ -81,12 +129,13 @@ void ROBOTHardwareInterface::update(const ros::TimerEvent& e) {
 void ROBOTHardwareInterface::read() {
     robot_hardware_interface::pos_service srv;
 
-	if(client.call(srv))
+    if(client.call(srv))
 	{
         for (int i=0; i < srv.response.joint_pos.data.size(); i++) {
-            joint_position_[i] = srv.response.joint_pos.data[i];
+            joint_position_[i] = (srv.response.joint_pos.data[i] / trans_ratio[i] );
             joint_velocity_[i] = 0.0;
         }
+        //act_to_jnt_state.propagate();
 	    ROS_INFO("Current Pos: %.2f, Vel: %.2f",joint_position_[0],joint_velocity_[0]);
 	}
 	else
@@ -103,9 +152,9 @@ void ROBOTHardwareInterface::read() {
 void ROBOTHardwareInterface::write(ros::Duration elapsed_time) {
 
     effortJointSaturationInterface.enforceLimits(elapsed_time);
-
+    //jnt_to_act_pos.propagate();
     for (int i=0; i < num_joints_; i++) {
-        joints_pub.data[i] = (float) joint_position_command_[i];
+        joints_pub.data[i] = (float) (joint_position_command_[i]*trans_ratio[i]);
 
     }
     ROS_INFO("Position Cmd: %.2f", joint_position_command_[0]);

@@ -10,6 +10,7 @@ project(robot_hardware_interface)
 find_package(catkin REQUIRED COMPONENTS
   controller_manager
   message_generation
+  transmission_interface
   roscpp
   rospy
   rosserial_arduino
