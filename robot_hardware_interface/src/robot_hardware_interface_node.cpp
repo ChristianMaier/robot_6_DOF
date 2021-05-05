@@ -33,8 +33,8 @@ void ROBOTHardwareInterface::init() {
     joints_pub.data.resize(num_joints_);
 
     trans_ratio.push_back(7.1);
-    trans_ratio.push_back(10.0);
-    trans_ratio.push_back(10.0);
+    trans_ratio.push_back(80.0/14.0);
+    trans_ratio.push_back(61.0/14.0);
     trans_ratio.push_back(10.0);
     trans_ratio.push_back(10.0);
     trans_ratio.push_back(10.0);

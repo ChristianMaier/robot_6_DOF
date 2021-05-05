@@ -18,17 +18,19 @@ ros::NodeHandle nh;
 const int num_joints = 6;
 
 float f_des_position[num_joints];
-const int steps_per_rev = 200; // 1,8° per step
+const int steps_per_rev[num_joints] = {200, 3200, 200, 200, 200, 200};  // different for each motor because of different microstepping
+const int max_speed[num_joints] = {400, 400, 400, 400, 400, 400};       // different for each motor because of different microstepping
+const int max_acceleration[num_joints] = {200, 200, 200, 200, 200, 200};
 
 int i_des_pos_steps[num_joints];
 int des_pos;
 
 AccelStepper stepper1(1, 2, 3);
-AccelStepper stepper2(1, 4, 5);
+AccelStepper stepper2(1, 12, 13);
 AccelStepper stepper3(1, 6, 7);
 AccelStepper stepper4(1, 8, 9);
 AccelStepper stepper5(1, 10, 11);
-AccelStepper stepper6(1, 12, 13);
+AccelStepper stepper6(1, 4, 5);
 
 AccelStepper joints[num_joints] = {stepper1, stepper2, stepper3, stepper4, stepper5, stepper6};
 
@@ -56,19 +58,19 @@ void Callback(const robot_hardware_interface::pos_service::Request & req, robot_
   //res.joint_pos.data_length = num_joints;
   
   for(int i = 0; i < num_joints; i++){
-    res.joint_pos.data[i] = calc_pos_in_rad(joints[i].currentPosition());
+    res.joint_pos.data[i] = calc_pos_in_rad(joints[i].currentPosition(), i);
   }
 }
 
-int calc_pos_in_steps(float pos_in_rad){
+int calc_pos_in_steps(float pos_in_rad, int joint_number){
   // convert pos from radians to steps
-  int steps = round( pos_in_rad/(2*PI)* (float)steps_per_rev);
+  int steps = round( pos_in_rad/(2*PI)* (float)steps_per_rev[joint_number]);
   return steps;
   }
 
-float calc_pos_in_rad(int pos_in_steps){
+float calc_pos_in_rad(int pos_in_steps, int joint_number){
   // convert pos from steps to radians
-  float pos = ((float)pos_in_steps)/((float)steps_per_rev)*2*PI;
+  float pos = ((float)pos_in_steps)/((float)steps_per_rev[joint_number])*2*PI;
   return pos;
   }
 
@@ -95,8 +97,8 @@ void setup()
       }
       
     for (int i = 0; i < num_joints; i++){
-      joints[i].setMaxSpeed(400);
-      joints[i].setAcceleration(2000);
+      joints[i].setMaxSpeed(max_speed[i]);
+      joints[i].setAcceleration(max_acceleration[i]);
     }
 
     des_pos = 0;
@@ -112,7 +114,7 @@ void loop()
   // check if the desired position has changed, if yes then set the new position, do this for every joint
   for(int i = 0; i < num_joints; i++){
     
-    des_pos = calc_pos_in_steps(f_des_position[i]);
+    des_pos = calc_pos_in_steps(f_des_position[i], i);
     if(des_pos != i_des_pos_steps[i]){
       joints[i].moveTo(des_pos); 
       i_des_pos_steps[i] = des_pos;
