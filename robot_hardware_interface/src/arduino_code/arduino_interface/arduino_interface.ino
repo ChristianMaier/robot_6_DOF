@@ -18,9 +18,9 @@ ros::NodeHandle nh;
 const int num_joints = 6;
 
 float f_des_position[num_joints];
-const int steps_per_rev[num_joints] = {200, 3200, 200, 200, 200, 200};  // different for each motor because of different microstepping
-const int max_speed[num_joints] = {400, 400, 400, 400, 400, 400};       // different for each motor because of different microstepping
-const int max_acceleration[num_joints] = {200, 200, 200, 200, 200, 200};
+const int steps_per_rev[num_joints] = {400, 1600, 400, 400, 400, 400};  // different for each motor because of different microstepping
+const int max_speed[num_joints] = {800, 3200, 800, 800, 800, 800};       // different for each motor because of different microstepping
+const int max_acceleration[num_joints] = {200, 400, 200, 200, 200, 200};
 
 int i_des_pos_steps[num_joints];
 int des_pos;

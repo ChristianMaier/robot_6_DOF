@@ -7,7 +7,7 @@
 ROBOTHardwareInterface::ROBOTHardwareInterface(ros::NodeHandle& nh) : nh_(nh) {
     init();
     controller_manager_.reset(new controller_manager::ControllerManager(this, nh_));
-    loop_hz_=10.0;
+    loop_hz_=50.0;
     ros::Duration update_freq = ros::Duration(1.0/loop_hz_);
 	
 	pub = nh_.advertise<std_msgs::Float32MultiArray>("/ard_des_joint_position",10);
@@ -33,8 +33,8 @@ void ROBOTHardwareInterface::init() {
     joints_pub.data.resize(num_joints_);
 
     trans_ratio.push_back(7.1);
-    trans_ratio.push_back(80.0/14.0);
-    trans_ratio.push_back(63.0/14.0);
+    trans_ratio.push_back(78.0/14.0);
+    trans_ratio.push_back(61.0/14.0);
     trans_ratio.push_back(10.0);
     trans_ratio.push_back(10.0);
     trans_ratio.push_back(10.0);
