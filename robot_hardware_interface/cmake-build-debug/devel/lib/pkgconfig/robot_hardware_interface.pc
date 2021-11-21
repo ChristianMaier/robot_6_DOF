@@ -1,8 +1,0 @@
-prefix=/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/cmake-build-debug/devel
-
-Name: robot_hardware_interface
-Description: Description of robot_hardware_interface
-Version: 0.0.0
-Cflags: -I/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/cmake-build-debug/devel/include -I/home/christian/python_projects/ROS/robot_6_DOF/src/robot_hardware_interface/include
-Libs: -L${prefix}/lib 
-Requires: controller_manager roscpp rospy rosserial_arduino rosserial_client std_msgs std_srvs message_runtime

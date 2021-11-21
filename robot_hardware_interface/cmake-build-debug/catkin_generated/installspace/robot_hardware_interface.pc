@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: robot_hardware_interface
-Description: Description of robot_hardware_interface
-Version: 0.0.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib 
-Requires: controller_manager roscpp rospy rosserial_arduino rosserial_client std_msgs std_srvs message_runtime

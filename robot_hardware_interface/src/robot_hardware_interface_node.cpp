@@ -11,7 +11,7 @@ ROBOTHardwareInterface::ROBOTHardwareInterface(ros::NodeHandle& nh) : nh_(nh) {
     ros::Duration update_freq = ros::Duration(1.0/loop_hz_);
 	
 	pub = nh_.advertise<std_msgs::Float32MultiArray>("/ard_des_joint_position",10);
-	client = nh_.serviceClient<robot_hardware_interface::pos_service>("/ard_pos_service");
+    client = nh_.serviceClient<robot_hardware_interface::pos_service>("/ard_pos_service");
 
     non_realtime_loop_ = nh_.createTimer(update_freq, &ROBOTHardwareInterface::update, this);
 }

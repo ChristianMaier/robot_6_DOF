@@ -27,6 +27,7 @@ class ROBOTHardwareInterface : public hardware_interface::RobotHW
         void read();
         void write(ros::Duration elapsed_time);
         ros::Publisher pub;
+        ros::Subscriber sub;
         ros::ServiceClient client;
         std_msgs::Float32MultiArray joints_pub;
         

@@ -12,6 +12,8 @@
 
 
 #define ROS_MESSAGE_CHECK 10000    // 0.01 seconds, times how often arudino is spinned
+
+// variables -------------
  
 ros::NodeHandle nh;
 
@@ -35,6 +37,7 @@ AccelStepper stepper6(1, 4, 5);
 AccelStepper joints[num_joints] = {stepper1, stepper2, stepper3, stepper4, stepper5, stepper6};
 
 std_msgs::Float32MultiArray data_exchanger;
+ros::Publisher pub("/ard_cur_joint_position", &data_exchanger);
 
 // functions-------------- 
 
@@ -62,6 +65,17 @@ void Callback(const robot_hardware_interface::pos_service::Request & req, robot_
   }
 }
 
+void publish_data(){
+  // function gets the data from the current joint position and publish it to the topic
+  
+  for(int i = 0; i < num_joints; i++){
+    data_exchanger.data[i] = calc_pos_in_rad(joints[i].currentPosition(), i);
+  }
+
+  pub.publish( &data_exchanger );
+  
+}
+
 int calc_pos_in_steps(float pos_in_rad, int joint_number){
   // convert pos from radians to steps
   int steps = round( pos_in_rad/(2*PI)* (float)steps_per_rev[joint_number]);
@@ -80,13 +94,16 @@ elapsedMicros rosMessageCheck;
 ros::Subscriber<std_msgs::Float32MultiArray> sub("ard_des_joint_position", &messageCb );
 ros::ServiceServer<robot_hardware_interface::pos_service::Request, robot_hardware_interface::pos_service::Response> service("ard_pos_service", &Callback );
 
+
 void setup()
 {
     pinMode(LED_BUILTIN, OUTPUT);
     nh.initNode();
-    nh.advertiseService(service);
+    //nh.advertiseService(service);   ------------------------------ service deactivated
     delay(1);
     nh.subscribe(sub);
+    delay(1);
+    nh.advertise(pub);   
 
     // init variables and steppers
     for(int i = 0; i < num_joints; i++){
@@ -128,6 +145,7 @@ void loop()
   
   // check ros messages, not done in every loop
   if (rosMessageCheck > ROS_MESSAGE_CHECK) {
+    publish_data();
     nh.spinOnce();
     rosMessageCheck = 0;
   }

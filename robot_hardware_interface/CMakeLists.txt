@@ -142,6 +142,9 @@ add_executable(joint_hardware_interface src/robot_hardware_interface_node.cpp)
 add_dependencies(joint_hardware_interface ${catkin_EXPORTED_TARGETS})
 target_link_libraries(joint_hardware_interface ${catkin_LIBRARIES})
 
+add_executable(joint_hardware_interface_ard src/arduino_service_talker.cpp)
+add_dependencies(joint_hardware_interface_ard ${catkin_EXPORTED_TARGETS})
+target_link_libraries(joint_hardware_interface_ard ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
