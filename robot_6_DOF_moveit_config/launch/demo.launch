@@ -66,6 +66,7 @@
   <rosparam file="$(find robot_6_DOF_moveit_config)/config/controllers.yaml" command="load"/>
   <node name="rosserial_arduino_node" pkg="rosserial_arduino" type="serial_node.py" args="$(arg serial_port)" />
   <node name="robot_hardware_interface" pkg="robot_hardware_interface" type="joint_hardware_interface" output="screen"/>
+  <node name="robot_hardware_interface_ard" pkg="robot_hardware_interface" type="joint_hardware_interface_ard" output="screen"/>
 
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
         args="
