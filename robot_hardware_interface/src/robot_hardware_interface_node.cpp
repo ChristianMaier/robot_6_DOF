@@ -32,12 +32,12 @@ void ROBOTHardwareInterface::init() {
 
     joints_pub.data.resize(num_joints_);
 
-    trans_ratio.push_back(7.1);
+    trans_ratio.push_back(-7.1);
     trans_ratio.push_back(78.0/14.0);
-    trans_ratio.push_back(61.0/14.0);
-    trans_ratio.push_back(10.0);
-    trans_ratio.push_back(10.0);
-    trans_ratio.push_back(10.0);
+    trans_ratio.push_back(-61.0/14.0*19.0); // gear-ratio an teeth ratio
+    trans_ratio.push_back(25.0);
+    trans_ratio.push_back(-44.0/10.0);
+    trans_ratio.push_back(25.0);
 
     std::stringstream ss;
     for (int i=0; i < num_joints_; i++) {

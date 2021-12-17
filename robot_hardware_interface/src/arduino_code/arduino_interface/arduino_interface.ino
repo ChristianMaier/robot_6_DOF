@@ -21,18 +21,18 @@ const int num_joints = 6;
 
 float f_des_position[num_joints];
 const int steps_per_rev[num_joints] = {400, 1600, 400, 400, 400, 400};  // different for each motor because of different microstepping
-const int max_speed[num_joints] = {800, 3200, 800, 800, 800, 800};       // different for each motor because of different microstepping
-const int max_acceleration[num_joints] = {200, 400, 200, 200, 200, 200};
+const int max_speed[num_joints] = {800, 3200, 4200, 800, 800, 800};       // different for each motor because of different microstepping
+const int max_acceleration[num_joints] = {200, 1000, 2000, 200, 200, 200};
 
 int i_des_pos_steps[num_joints];
 int des_pos;
 
-AccelStepper stepper1(1, 2, 3);
+AccelStepper stepper1(1, 8, 9);
 AccelStepper stepper2(1, 12, 13);
-AccelStepper stepper3(1, 6, 7);
-AccelStepper stepper4(1, 8, 9);
-AccelStepper stepper5(1, 10, 11);
-AccelStepper stepper6(1, 4, 5);
+AccelStepper stepper3(1, 2, 3);
+AccelStepper stepper4(1, 4, 5);
+AccelStepper stepper5(1, 6, 7);
+AccelStepper stepper6(1, 10, 11);
 
 AccelStepper joints[num_joints] = {stepper1, stepper2, stepper3, stepper4, stepper5, stepper6};
 
